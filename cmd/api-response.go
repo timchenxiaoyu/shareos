@@ -19,9 +19,9 @@ package cmd
 import (
 	"encoding/xml"
 	"net/http"
+	"net/url"
 	"path"
 	"time"
-	"net/url"
 )
 
 const (
@@ -256,7 +256,7 @@ type DeleteObjectsResponse struct {
 	XMLName xml.Name `xml:"http://s3.amazonaws.com/doc/2006-03-01/ DeleteResult" json:"-"`
 
 	// Collection of all deleted objects
-	//DeletedObjects []ObjectIdentifier `xml:"Deleted,omitempty"`
+	DeletedObjects []ObjectIdentifier `xml:"Deleted,omitempty"`
 
 	// Collection of errors deleting certain objects.
 	Errors []DeleteError `xml:"Error,omitempty"`
@@ -495,18 +495,18 @@ func generateListMultipartUploadsResponse(bucket string, multipartsInfo ListMult
 	return listMultipartUploadsResponse
 }
 
-//// generate multi objects delete response.
-//func generateMultiDeleteResponse(quiet bool, deletedObjects []ObjectIdentifier, errs []DeleteError) DeleteObjectsResponse {
-//	deleteResp := DeleteObjectsResponse{}
-//	if !quiet {
-//		deleteResp.DeletedObjects = deletedObjects
-//	}
-//	deleteResp.Errors = errs
-//	return deleteResp
-//}
+// generate multi objects delete response.
+func generateMultiDeleteResponse(quiet bool, deletedObjects []ObjectIdentifier, errs []DeleteError) DeleteObjectsResponse {
+	deleteResp := DeleteObjectsResponse{}
+	if !quiet {
+		deleteResp.DeletedObjects = deletedObjects
+	}
+	deleteResp.Errors = errs
+	return deleteResp
+}
 
 func writeResponse(w http.ResponseWriter, statusCode int, response []byte, mType mimeType) {
-	//setCommonHeaders(w)
+	setCommonHeaders(w)
 	if mType != mimeNone {
 		w.Header().Set("Content-Type", string(mType))
 	}
@@ -564,8 +564,8 @@ func writeErrorResponse(w http.ResponseWriter, errorCode APIErrorCode, reqURL *u
 	encodedErrorResponse := encodeResponse(errorResponse)
 	writeResponse(w, apiError.HTTPStatusCode, encodedErrorResponse, mimeXML)
 }
-//
-//func writeErrorResponseHeadersOnly(w http.ResponseWriter, errorCode APIErrorCode) {
-//	apiError := getAPIError(errorCode)
-//	writeResponse(w, apiError.HTTPStatusCode, nil, mimeNone)
-//}
+
+func writeErrorResponseHeadersOnly(w http.ResponseWriter, errorCode APIErrorCode) {
+	apiError := getAPIError(errorCode)
+	writeResponse(w, apiError.HTTPStatusCode, nil, mimeNone)
+}

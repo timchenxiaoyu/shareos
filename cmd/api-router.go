@@ -39,7 +39,7 @@ func registerAPIRouter(mux *router.Router) {
 	/// Object operations
 
 	// HeadObject
-	//bucket.Methods("HEAD").Path("/{object:.+}").HandlerFunc(api.HeadObjectHandler)
+	bucket.Methods("HEAD").Path("/{object:.+}").HandlerFunc(api.HeadObjectHandler)
 	//// CopyObjectPart
 	//bucket.Methods("PUT").Path("/{object:.+}").HeadersRegexp("X-Amz-Copy-Source", ".*?(\\/|%2F).*?").HandlerFunc(api.CopyObjectPartHandler).Queries("partNumber", "{partNumber:[0-9]+}", "uploadId", "{uploadId:.*}")
 	//// PutObjectPart
@@ -53,11 +53,11 @@ func registerAPIRouter(mux *router.Router) {
 	//// AbortMultipartUpload
 	//bucket.Methods("DELETE").Path("/{object:.+}").HandlerFunc(api.AbortMultipartUploadHandler).Queries("uploadId", "{uploadId:.*}")
 	//// GetObject
-	//bucket.Methods("GET").Path("/{object:.+}").HandlerFunc(api.GetObjectHandler)
+	bucket.Methods("GET").Path("/{object:.+}").HandlerFunc(api.GetObjectHandler)
 	//// CopyObject
 	//bucket.Methods("PUT").Path("/{object:.+}").HeadersRegexp("X-Amz-Copy-Source", ".*?(\\/|%2F).*?").HandlerFunc(api.CopyObjectHandler)
 	//// PutObject
-	//bucket.Methods("PUT").Path("/{object:.+}").HandlerFunc(api.PutObjectHandler)
+	bucket.Methods("PUT").Path("/{object:.+}").HandlerFunc(api.PutObjectHandler)
 	//// DeleteObject
 	//bucket.Methods("DELETE").Path("/{object:.+}").HandlerFunc(api.DeleteObjectHandler)
 
