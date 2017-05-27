@@ -28,7 +28,7 @@ const (
 	globalMinioCertExpireWarnDays = time.Hour * 24 * 30 // 30 days.
 
 	globalMinioDefaultRegion       = ""
-	globalMinioDefaultOwnerID      = "minio"
+	globalMinioDefaultOwnerID      = "shareos"
 	globalMinioDefaultStorageClass = "STANDARD"
 	globalWindowsOSName            = "windows"
 	globalNetBSDOSName             = "netbsd"

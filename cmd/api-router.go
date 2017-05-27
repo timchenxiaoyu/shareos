@@ -76,7 +76,7 @@ func registerAPIRouter(mux *router.Router) {
 	//// ListObjectsV2
 	//bucket.Methods("GET").HandlerFunc(api.ListObjectsV2Handler).Queries("list-type", "2")
 	//// ListObjectsV1 (Legacy)
-	//bucket.Methods("GET").HandlerFunc(api.ListObjectsV1Handler)
+	bucket.Methods("GET").HandlerFunc(api.ListObjectsV1Handler)
 	//// PutBucketPolicy
 	//bucket.Methods("PUT").HandlerFunc(api.PutBucketPolicyHandler).Queries("policy", "")
 	//// PutBucketNotification
